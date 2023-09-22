@@ -1,0 +1,183 @@
+<!-- We'll be making normal BlackJack-->
+<!-- Define document for browser-->
+<!DOCTYPE html>
+<!-- Start HTML Section-->
+<html lang="en">
+    <!-- Start Head Section-->
+<head>
+    <!-- Add Meta Tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Add CSS styling-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+
+        #game {
+            margin: 0 auto;
+            width: 800px;
+        }
+
+        #stats {
+            width: 100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #buildings {
+            float: left;
+            width: 200px;
+        }
+
+        #doctor {
+            float: left;
+            width: 200px;
+        }
+
+        #nurse {
+            float: left;
+            width: 200px;
+        }
+        
+        #patient {
+            float: left;
+            width: 200px;
+        }
+
+        button{
+            margin: 5px;
+            padding: 10px;
+            background-color: bisque;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.hover {
+            background-color: #3e8e43;
+        }
+    </style>
+<!-- End Head Section-->
+</head>
+<!-- Start Body Section-->
+<body>
+    <!--div for stats-->
+    <div id="game">
+        <!-- Header for hospital-->
+        <h1 style="text-align: center;">Cooled Hospital</h1>
+        <h2 style="text-align: center;">Treatment is BlackJack</h2>
+        <!--Create visible stats for person to see-->
+    <div id="stats"></div>
+    <!--Header for Stats-->
+    <h3>Stats</h3>
+    <!-- p = paragraph tag, starts new line-->
+    <!-- span tag = html tag spans same line-->
+    <p>Money: <span id="money">10000</span></p>
+    <p>Patients: <span id="patients">0</span></p>
+    <p>Doctors: <span id="doctors">0</span></p>
+    <p>Nurses: <span id="nurses">0</span></p>
+    </div>
+    <!-- Look much better by seperating header & Buttons-->
+    <div id="buildings">
+        <h3>Buildings</h3>
+        <!--button for clinic-->
+        <button id="build-room" onclick="buildRoom()">Build Room ($5000)</button>
+    </div>
+    <div id="doctor">
+        <h3>Doctors</h3>
+        <!--button to hire doctor-->
+        <button id="hire-doctor" onclick="hireDoctor()">Hire Doctor ($1000)</button>
+    </div>
+    <div id="nurse">
+        <h3>Nurses</h3>
+        <!--button to hire Nurse-->
+        <button id="hire-nurse" onclick="hireNurse()">Hire Nurse ($500)</button>
+    </div>
+    <div id="patient">
+        <h3>Patients</h3>
+        <!--Button to treat patient-->
+        <button id="treat-patient" onclick="treatPatient()">Treat Patient</button>
+    </div>
+    <!-- Add Javascript, Funtions & code start-->
+    <script>
+        //create variables
+        var money = 10000;
+        var rooms = 10;
+        var patients = 0;
+        var doctors = 0;
+        var nurses = 0;
+
+        // create function to update stats
+        function updateStats() {
+            document.getElementById("money").innerHTML = money;
+            document.getElementById("patients").innerHTML = patients;
+            document.getElementById("doctors").innerHTML = doctors;
+            document.getElementById("nurses").innerHTML = nurses;
+        }
+        function buildRoom() {
+            if (money >= 5000) {
+                // subtract money
+                money = money - 5000;
+                // add room for patient
+                rooms = rooms + 1;
+                // update stats
+                updateStats();
+            }
+        }
+
+        function hireDoctor() {
+            if (money >= 1000) {
+                // subtract money
+                money = money - 1000;
+                // add a doctor
+                doctors = doctors + 1;
+                // update stats
+                updateStats();
+            }
+        }
+
+        function hireNurse() {
+            if (money >= 500) {
+                // subtract money
+                money = money - 500;
+                // add a nurse
+                nurses = nurses + 1;
+                // update stats
+                updateStats();
+            }
+        }
+
+        function treatPatient() {
+            if (doctors >= 1 && nurses >= 1 && patients > 0) {
+                // remove doctor
+                doctors = doctors - 1;
+                // remove nurse
+                nurses = nurses - 1;
+                // remove patient
+                patients = patients - 1;
+                // add $10000
+                money = money + 10000;
+                // update stats
+                updateStats();
+            }
+        }
+
+        setInterval(function() {
+            // check to see if less than 10 patients
+            if (patients < rooms) {
+                // add patient
+                patients = patients + 1;
+                // update stats
+                updateStats()
+            }
+        }, 1000)
+    </script>
+<!-- End Body Section-->
+</body>
+
+<!-- End HTML Section-->
+</html>
